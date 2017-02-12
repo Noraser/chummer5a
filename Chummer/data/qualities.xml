@@ -5837,6 +5837,7 @@
 			</required>
 			<source>RF</source>
 			<page>116</page>
+      <metagenetic>yes</metagenetic>
 		</quality>
 		<quality>
 			<id>556c2599-ae97-44ff-98aa-442af1c9c6d4</id>
@@ -9109,7 +9110,7 @@
 						<quality>Mystic Adept</quality>
 					</oneof>
 				</required>
-				<discount>-10</discount>
+				<value>-10</value>
 			</costdiscount>
 			<category>Positive</category>
 			<bonus>
@@ -9268,7 +9269,7 @@
 						<quality>Mystic Adept</quality>
 					</oneof>
 				</required>
-				<discount>-10</discount>
+				<value>-10</value>
 			</costdiscount>
 			<category>Positive</category>
 			<bonus>
@@ -9932,7 +9933,7 @@
 						<quality>Mystic Adept</quality>
 					</oneof>
 				</required>
-				<discount>-10</discount>
+				<value>-10</value>
 			</costdiscount>
 			<bonus>
 				<enableattribute>

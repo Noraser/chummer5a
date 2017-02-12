@@ -280,8 +280,7 @@ namespace Chummer
             _attributes = new Dictionary<string, CharacterAttrib>();
             foreach (string strAttribute in AttributeStrings)
             {
-                CharacterAttrib objLoopAttrib = new CharacterAttrib(strAttribute);
-                objLoopAttrib._objCharacter = this;
+                CharacterAttrib objLoopAttrib = new CharacterAttrib(strAttribute) {_objCharacter = this};
                 _attributes.Add(strAttribute, objLoopAttrib);
             }
 			_objImprovementManager = new ImprovementManager(this);
@@ -878,7 +877,7 @@ namespace Chummer
 
 			// <sources>
 			objWriter.WriteStartElement("sources");
-			foreach (String strItem in _lstSources)
+			foreach (string strItem in _lstSources)
 			{
 				objWriter.WriteElementString("source", strItem);
 			}
@@ -900,7 +899,10 @@ namespace Chummer
         {
 			Timekeeper.Start("load_xml");
             XmlDocument objXmlDocument = new XmlDocument();
-            objXmlDocument.Load(_strFileName);
+            using (StreamReader sr = new StreamReader(_strFileName, true))
+            {
+                objXmlDocument.Load(sr);
+            }
 	        Timekeeper.Finish("load_xml");
 			Timekeeper.Start("load_char_misc");
             XmlNode objXmlCharacter = objXmlDocument.SelectSingleNode("/character");
@@ -1877,15 +1879,15 @@ namespace Chummer
             // <karma />
             objWriter.WriteElementString("karma", _intKarma.ToString());
             // <totalkarma />
-            objWriter.WriteElementString("totalkarma", String.Format("{0:###,###,##0}", Convert.ToInt32(CareerKarma)));
+            objWriter.WriteElementString("totalkarma", $"{CareerKarma:###,###,##0}");
             // <special />
             objWriter.WriteElementString("special", _intSpecial.ToString());
             // <totalspecial />
-            objWriter.WriteElementString("totalspecial", String.Format("{0:###,###,##0}", Convert.ToInt32(_intTotalSpecial)));
+            objWriter.WriteElementString("totalspecial", $"{_intTotalSpecial:###,###,##0}");
             // <attributes />
             objWriter.WriteElementString("attributes", _intSpecial.ToString());
             // <totalattributes />
-            objWriter.WriteElementString("totalattributes", String.Format("{0:###,###,##0}", Convert.ToInt32(_intTotalAttributes)));
+            objWriter.WriteElementString("totalattributes", $"{_intTotalAttributes:###,###,##0}");
             // <streetcred />
             objWriter.WriteElementString("streetcred", _intStreetCred.ToString());
             // <calculatedstreetcred />
@@ -2037,7 +2039,7 @@ namespace Chummer
             objWriter.WriteStartElement("attributes");
             foreach (KeyValuePair<string, CharacterAttrib> objAttribute in _attributes)
             {
-                objAttribute.Value.Print(objWriter);
+                objAttribute.Value.Print(objWriter, objAttribute.Key == "ESS" ? Essence.ToString(GlobalOptions.CultureInfo) : string.Empty);
             }
 
             // </attributes>
@@ -5816,7 +5818,7 @@ namespace Chummer
 					int walkratemph = Convert.ToInt32(0.62 * .001 * (60 * 20 * intWalking));
 					int runratemph = Convert.ToInt32(0.62 * .001 * (60 * 20 * intRunning));
 
-					strReturn = String.Format(LanguageManager.Instance.GetString("Tip_CalculatedMovement"), intWalking.ToString(), walkratekph.ToString(), intRunning.ToString(), runratekph.ToString());
+					strReturn = string.Format(LanguageManager.Instance.GetString("Tip_CalculatedMovement"), intWalking.ToString(), walkratekph.ToString(), intRunning.ToString(), runratekph.ToString());
 				}
 
 				return strReturn;
@@ -6823,13 +6825,13 @@ namespace Chummer
         {
             get
             {
-                if (_initPasses == Int32.MinValue)
+                if (_initPasses == int.MinValue)
                     _initPasses = Convert.ToInt32(InitiativeDice);
                 return _initPasses;
             }
             set { _initPasses = value; }
         }
-        private int _initPasses = Int32.MinValue;
+        private int _initPasses = int.MinValue;
 
         /// <summary>
         /// True iff the character is currently delaying an action
@@ -6888,12 +6890,12 @@ namespace Chummer
 		#endregion
 
 		//Can't be at improvementmanager due reasons
-		private Lazy<Stack<String>> _pushtext = new Lazy<Stack<String>>();
+		private Lazy<Stack<string>> _pushtext = new Lazy<Stack<string>>();
 
 	    /// <summary>
 		/// Push a value that will be used instad of dialog instead in next <selecttext />
 		/// </summary>
-	    public Stack<String> Pushtext
+	    public Stack<string> Pushtext
 	    {
 		    get
 		    {

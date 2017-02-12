@@ -2203,6 +2203,10 @@
 			<text>{0} more items with Avail higher than {1} than allowed</text>
 		</string>
     <string>
+      <key>Message_RestrictedGearUsed</key>
+      <text>Restricted Gear was used on:\n{0}</text>
+    </string>
+    <string>
       <key>Message_InvalidCyberwareGrades</key>
       <text>Cyber/Bioware Grade limit exceeded for the following items:</text>
     </string>    
@@ -2252,7 +2256,7 @@
 		</string>
 		<string>
 			<key>Message_NoExtraKarma</key>
-			<text>You have {0} remaining but are not allowed to carry any over to your career.\nAre you sure you want to lose these extra points?</text>
+			<text>You have {0} Karma remaining but are not allowed to carry any over to your career.\nAre you sure you want to lose these extra points?</text>
 		</string>	
 		<string>
 			<key>Message_SumtoTen</key>
@@ -2610,7 +2614,11 @@
 			<key>String_LifestyleName</key>
 			<text>Enter a new name for this Lifestyle (or blank to remove).</text>
 		</string>
-		<string>
+    <string>
+      <key>String_LifestyleFreeNuyen</key>
+      <text>Covered by Lifestyle level</text>
+    </string>
+    <string>
 			<key>String_GearName</key>
 			<text>Enter a new name for this Gear (or blank to remove).</text>
 		</string>
@@ -6965,8 +6973,8 @@ Do you want to continue?</text>
 			<text>Security:</text>
 		</string>
 		<string>
-			<key>Label_SelectAdvancedLifestyle_TotalLP</key>
-			<text>Total LP:</text>
+			<key>Label_SelectAdvancedLifestyle_UnusedLP</key>
+			<text>Unused LP:</text>
 		</string>
 		<string>
 			<key>Message_SelectAdvancedLifestyle_LifestyleName</key>
